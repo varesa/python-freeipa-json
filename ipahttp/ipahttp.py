@@ -27,7 +27,7 @@ class ipa(object):
         ipaurl = 'https://%s/ipa/session/login_password' % (self.server)
         header = {'referer': ipaurl, 'Content-Type':
                   'application/x-www-form-urlencoded', 'Accept': 'text/plain'}
-        login = {'user': user, 'password': passwd}
+        login = {'user': user, 'password': password}
         rv = self.session.post(ipaurl, headers=header, data=login,
                                verify=self.sslverify)
 
