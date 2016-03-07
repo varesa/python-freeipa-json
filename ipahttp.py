@@ -7,7 +7,7 @@
 #
 # Todo:
 # - Pull in the rest of the FreeIPA methods
-# - Fix the 'API version not sent' message
+# - Fix the "API version not sent" message
 # -----------------------------------------------------------------------------
 import requests
 import json
