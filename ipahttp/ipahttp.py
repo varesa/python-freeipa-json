@@ -37,6 +37,8 @@ class ipa(object):
                 self.server)
             )
             rv = None
+        else:
+            self.log.info('Successfully logged in as %s' % user)
         return rv
 
     def makeReq(self, pdict):
@@ -47,6 +49,7 @@ class ipa(object):
                   'Accept': 'application/json'}
         data = {'id': 0, 'method': pdict['method'], 'params':
                 [pdict['item'], pdict['params']]}
+        self.log.debug('Making {} request to {}'.format(pdict['method'], session_url))
         request = self.session.post(
                 session_url, headers=header,
                 data=json.dumps(data),
