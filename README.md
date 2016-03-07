@@ -7,3 +7,7 @@ Copy the file to your site-packages directory (I.E /usr/lib/python3.4/site-packa
 ## Dependencies
 - requests
 - json
+
+## License
+
+MIT © [Nordnet Bank AB](https://www.nordnet.se/)
