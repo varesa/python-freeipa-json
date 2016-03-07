@@ -24,7 +24,7 @@ class ipa(object):
 
     def login(self, user, password):
         rv = None
-        ipaurl = 'https://%s/ipa/session/login_password' % (self.server)
+        ipaurl = 'https://{0}/ipa/session/login_password'.format(self.server)
         header = {'referer': ipaurl, 'Content-Type':
                   'application/x-www-form-urlencoded', 'Accept': 'text/plain'}
         login = {'user': user, 'password': password}
@@ -32,24 +32,28 @@ class ipa(object):
                                verify=self.sslverify)
 
         if rv.status_code != 200:
-            self.log.warning('Failed to log %s in to %s' % (
+            self.log.warning('Failed to log {0} in to {1}'.format(
                 user,
                 self.server)
             )
             rv = None
         else:
-            self.log.info('Successfully logged in as %s' % user)
+            self.log.info('Successfully logged in as {0}'.format(user))
         return rv
 
     def makeReq(self, pdict):
         results = None
-        ipaurl = 'https://%s/ipa' % (self.server)
-        session_url = '%s/session/json' % (ipaurl)
+        ipaurl = 'https://{0}/ipa'.format(self.server)
+        session_url = '{0}/session/json'.format(ipaurl)
         header = {'referer': ipaurl, 'Content-Type': 'application/json',
                   'Accept': 'application/json'}
+
         data = {'id': 0, 'method': pdict['method'], 'params':
                 [pdict['item'], pdict['params']]}
-        self.log.debug('Making {} request to {}'.format(pdict['method'], session_url))
+
+        self.log.debug('Making {0} request to {1}'.format(pdict['method'],
+                        session_url))
+
         request = self.session.post(
                 session_url, headers=header,
                 data=json.dumps(data),
@@ -74,8 +78,8 @@ class ipa(object):
 
     def group_add_member(self, group, item, membertype):
         if membertype not in ['user', 'group']:
-            raise ValueError('Type %s is not a valid member type,\
-             specify user or group' % (membertype))
+            raise ValueError('Type {0} is not a valid member type,\
+             specify user or group'.format(membertype))
         m = {
                 'item': [group],
                 'method': 'group_add_member',
