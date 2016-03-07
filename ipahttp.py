@@ -38,7 +38,10 @@ class ipa(object):
                                verify=self.sslverify)
 
         if rv.status_code != 200:
-            self.log.warning("Failed to log %s in to %s" % (self.user, self.server))
+            self.log.warning("Failed to log %s in to %s" % (
+                self.user,
+                self.server)
+            )
             rv = None
         return rv
 
@@ -50,8 +53,11 @@ class ipa(object):
                   'Accept': 'application/json'}
         data = {"id": 0, "method": pdict['method'], "params":
                 [pdict['item'], pdict['params']]}
-        request = self.session.post(session_url, headers=header,
-                                    data=json.dumps(data), verify=self.sslverify)
+        request = self.session.post(
+                session_url, headers=header,
+                data=json.dumps(data),
+                verify=self.sslverify
+        )
         results = request.json()
 
         return results
@@ -73,8 +79,15 @@ class ipa(object):
         if membertype not in ['user', 'group']:
             raise ValueError("Type %s is not a valid member type,\
              specify user or group" % (membertype))
-        m = {"item": [group], "method": "group_add_member", "params":
-             {"all": True, "raw": True, membertype: item}}
+        m = {
+                "item": [group],
+                "method": "group_add_member",
+                "params": {
+                    "all": True,
+                    "raw": True,
+                    membertype: item
+                }
+        }
         results = self.makeReq(m)
 
         return results
@@ -131,8 +144,14 @@ class ipa(object):
         return results
 
     def hostgroup_add(self, hostgroup, description=None):
-        m = {"method": "hostgroup_add", "item": [hostgroup],
-                "params": {"all": True, "description": description}}
+        m = {
+                "method": "hostgroup_add",
+                "item": [hostgroup],
+                "params": {
+                    "all": True,
+                    "description": description
+                }
+        }
         results = self.makeReq(m)
 
         return results
@@ -140,8 +159,11 @@ class ipa(object):
     def hostgroup_add_member(self, hostgroup, hostname):
         if type(hostname) != list:
             hostname = [hostname]
-        m = {"method": "hostgroup_add_member", "item": [hostgroup], "params":
-                {"host": hostname, "all": True}}
+        m = {
+                "method": "hostgroup_add_member",
+                "item": [hostgroup],
+                "params": {"host": hostname, "all": True}
+        }
         results = self.makeReq(m)
 
         return results
