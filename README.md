@@ -10,11 +10,13 @@ Copy the file to your site-packages directory (I.E /usr/lib/python3.4/site-packa
 
 ## Example usage
 ```python
+import ipahttp
+
 ipa = ipahttp.ipa('ipa.example.com')
 ipa.login('apiuser', 'secret_password')
 reply = ipa.host_find()
 for host in reply['result']['result']:
-    root.info('Found host %s' % host['fqdn'][0])
+    print('Found host %s' % host['fqdn'][0])
 ```
 
 ## License
