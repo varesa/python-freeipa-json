@@ -16,16 +16,12 @@ import logging
 
 class ipa(object):
 
-    def __init__(self, prog, logger=None, sslverify=False):
+    def __init__(self, prog, sslverify=False):
         self.server = prog['srv']
         self.user = prog['usr']
         self.passwd = prog['pwd']
         self.sslverify = sslverify
-
-        if not logger:
-            self.log = logging
-        else:
-            self.log = logger
+        self.log = logging.getLogger(__name__)
 
     def login(self):
         rv = None
