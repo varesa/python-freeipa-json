@@ -18,5 +18,5 @@ setuptools.setup(
     long_description=readme,
     license='MIT',
     install_requires=required,
-    scripts=['ipahttp.py']
+    packages=['ipahttp']
 )
