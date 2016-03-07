@@ -22,6 +22,7 @@ class ipa(object):
         self.passwd = prog['pwd']
         self.sslverify = sslverify
         self.log = logging.getLogger(__name__)
+        self.session = requests.Session()
 
     def login(self):
         rv = None
@@ -29,7 +30,6 @@ class ipa(object):
         header = {'referer': ipaurl, 'Content-Type':
                   'application/x-www-form-urlencoded', 'Accept': 'text/plain'}
         login = {'user': self.user, 'password': self.passwd}
-        self.session = requests.Session()
         rv = self.session.post(ipaurl, headers=header, data=login,
                                verify=self.sslverify)
 
