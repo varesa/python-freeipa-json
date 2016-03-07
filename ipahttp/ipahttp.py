@@ -16,8 +16,8 @@ import logging
 
 class ipa(object):
 
-    def __init__(self, prog, sslverify=False):
-        self.server = prog['srv']
+    def __init__(self, server, sslverify=False):
+        self.server = server
         self.sslverify = sslverify
         self.log = logging.getLogger(__name__)
         self.session = requests.Session()
