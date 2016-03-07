@@ -18,24 +18,22 @@ class ipa(object):
 
     def __init__(self, prog, sslverify=False):
         self.server = prog['srv']
-        self.user = prog['usr']
-        self.passwd = prog['pwd']
         self.sslverify = sslverify
         self.log = logging.getLogger(__name__)
         self.session = requests.Session()
 
-    def login(self):
+    def login(user, password):
         rv = None
         ipaurl = 'https://%s/ipa/session/login_password' % (self.server)
         header = {'referer': ipaurl, 'Content-Type':
                   'application/x-www-form-urlencoded', 'Accept': 'text/plain'}
-        login = {'user': self.user, 'password': self.passwd}
+        login = {'user': user, 'password': passwd}
         rv = self.session.post(ipaurl, headers=header, data=login,
                                verify=self.sslverify)
 
         if rv.status_code != 200:
             self.log.warning('Failed to log %s in to %s' % (
-                self.user,
+                user,
                 self.server)
             )
             rv = None
