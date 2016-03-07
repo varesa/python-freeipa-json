@@ -22,7 +22,7 @@ class ipa(object):
         self.log = logging.getLogger(__name__)
         self.session = requests.Session()
 
-    def login(user, password):
+    def login(self, user, password):
         rv = None
         ipaurl = 'https://%s/ipa/session/login_password' % (self.server)
         header = {'referer': ipaurl, 'Content-Type':
