@@ -6,7 +6,6 @@ This module tries to use a minimal set of dependencies to communicate with FreeI
 Use the included setup.py to install or manually copy the ipahttp to your python library directory.
 ## Dependencies
 - requests
-- json
 
 ## Example usage
 ```python
