@@ -1,9 +1,11 @@
 # -[python-freeipa-json]-------------------------------------------------------
-# This is a very basic and quick and dirty way to communicate with
-# FreeIPA/IdM without having to install their toolchain, also you do not have
-# to rely on halfassed kerberos implementations in python.
-# This sorry excuse for a module have 2 requirements, requests (because nobody
-# likes urllib2 except for me) and json
+# This is a very basic quick and dirty way to communicate with FreeIPA/IdM
+# without having to install their toolchain, also you do not have to rely on
+# kerberos implementations in python.
+#
+# This sorry excuse for a module have 1 requirement outside of the python 
+# standard library: 
+# * requests
 #
 # Todo:
 # - Pull in the rest of the FreeIPA methods
@@ -39,6 +41,8 @@ class ipa(object):
             rv = None
         else:
             self.log.info('Successfully logged in as {0}'.format(user))
+            # set login_user for use when changing password for self
+            self.login_user = user
         return rv
 
     def makeReq(self, pdict):
