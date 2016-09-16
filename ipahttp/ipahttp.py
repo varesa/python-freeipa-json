@@ -73,7 +73,7 @@ class ipa(object):
 
         return results
 
-    def group_add(self, group, description=None):
+    def group_add(self, group, gidnumber=None, description=None):
         m = {'method': 'group_add',
              'item': [group],
              'params': {
@@ -81,6 +81,8 @@ class ipa(object):
                  'description': description
              }
         }
+        if gidnumber is not None:
+            m['params']['gidnumber'] = gidnumber
         results = self.makeReq(m)
 
         return results
@@ -296,10 +298,11 @@ class ipa(object):
     def selfservice_add(self, aciname, attrs, permissions=None):
         m = {
             'method': 'selfservice_add',
-            'item': [None],
+            'item': [aciname],
             'params': {
-                'aciname': aciname,
                 'attrs': attrs,
+                'all': True,
+                'raw': False,
                 'version': '2.164'
             }
         }
