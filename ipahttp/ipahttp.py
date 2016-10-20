@@ -311,3 +311,40 @@ class ipa(object):
         results = self.makeReq(m)
 
         return results
+
+    def automember_add(self, name, description='', type='group'):
+        m = {
+            'method': 'automember_add',
+            'item': [name],
+            'params': {
+                'type': type,
+                'all': True,
+                'raw': False,
+                'version': '2.164'
+            }
+        }
+        if description:
+            m['params']['description'] = description
+        results = self.makeReq(m)
+
+        return results
+
+    def automember_add_condition(self, name, key, type, description='', inclusive_regex='', exclusive_regex=''):
+        m = {
+            'method': 'automember_add_condition',
+            'item': [name],
+            'params': {
+                'key': key,
+                'type': type,
+                'all': True,
+                'raw': False,
+                'version': '2.164'
+            }
+        }
+        if inclusive_regex:
+            m['params']['automemberinclusiveregex'] = inclusive_regex
+        if exclusive_regex:
+            m['params']['automemberexclusiveregex'] = exclusive_regex
+        results = self.makeReq(m)
+
+        return results
