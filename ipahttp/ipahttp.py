@@ -104,6 +104,25 @@ class ipa(object):
 
         return results
 
+    def group_remove_member(self, group, items, membertype):
+        if isinstance(items, str):
+            items = [items]
+        m = {
+            "method": "group_remove_member",
+            "item": [group],
+            "params": {
+                "all": False,
+                "no_members": False,
+                "raw": False,
+                "user": items,
+                "version": "2.164"
+            }
+        }
+        results = self.makeReq(m)
+
+        return results
+
+
     def group_find(self, group=None, sizelimit=40000):
         m = {'method': 'group_find', 'item': [group], 'params': {'all': True,
              'sizelimit': sizelimit}}
@@ -237,7 +256,6 @@ class ipa(object):
 
     def user_mod(self, user, addattrs=[], setattrs=[], delattrs=[]):
         m = {
-            'id': 0,
             'method': 'user_mod',
             'item': [user],
             'params': {
@@ -254,6 +272,19 @@ class ipa(object):
             m['params']['setattr'] = setattrs
         if len(delattrs):
             m['params']['delattr'] = delattrs
+
+        return self.makeReq(m)
+
+    def user_del(self, user, preserve=True):
+        m = {
+            "item": [user],
+            "method": "user_del",
+            "params": {
+                "continue": False,
+                "preserve": preserve,
+                "version": "2.164"
+            }
+        }
 
         return self.makeReq(m)
 
