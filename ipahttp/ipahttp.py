@@ -326,6 +326,39 @@ class ipa(object):
 
         return results
 
+    def stageuser_mod(self, user, addattrs=[], setattrs=[], delattrs=[]):
+        m = {
+            'method': 'stageuser_mod',
+            'item': [user],
+            'params': {
+                    'all': False,
+                    'no_members': False,
+                    'raw': False,
+                    'rights': False,
+                    'version': '2.164'
+            }
+        }
+        if len(addattrs):
+            m['params']['addattr'] = addattrs
+        if len(setattrs):
+            m['params']['setattr'] = setattrs
+        if len(delattrs):
+            m['params']['delattr'] = delattrs
+
+        return self.makeReq(m)
+
+    def stageuser_activate(self, user):
+        m = {
+            'method': 'stageuser_activate',
+            'item': [user],
+            'params': {
+                'version': '2.164'
+            }
+        }
+        results = self.makeReq(m)
+
+        return results
+
     def selfservice_add(self, aciname, attrs, permissions=None):
         m = {
             'method': 'selfservice_add',
