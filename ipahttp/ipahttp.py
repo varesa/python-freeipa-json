@@ -122,7 +122,6 @@ class ipa(object):
 
         return results
 
-
     def group_find(self, group=None, sizelimit=40000):
         m = {'method': 'group_find', 'item': [group], 'params': {'all': True,
              'sizelimit': sizelimit}}
@@ -136,6 +135,27 @@ class ipa(object):
         results = self.makeReq(m)
 
         return results
+
+    def group_mod(self, group, addattrs=[], setattrs=[], delattrs=[]):
+        m = {
+            'method': 'group_mod',
+            'item': [group],
+            'params': {
+                    'all': False,
+                    'no_members': False,
+                    'raw': False,
+                    'rights': False,
+                    'version': '2.164'
+            }
+        }
+        if len(addattrs):
+            m['params']['addattr'] = addattrs
+        if len(setattrs):
+            m['params']['setattr'] = setattrs
+        if len(delattrs):
+            m['params']['delattr'] = delattrs
+
+        return self.makeReq(m)
 
     def host_add(self, hostname, opasswd, force=True):
         m = {'item': [hostname], 'method': 'host_add', 'params': {'all': True,
