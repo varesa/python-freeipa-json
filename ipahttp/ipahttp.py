@@ -274,6 +274,13 @@ class ipa(object):
 
         return results
 
+    def user_disable(self, user):
+        m = {'item': [user], 'method': 'user_disable', 'params':
+             {'version': '2.112'}}
+        results = self.makeReq(m)
+
+        return results
+
     def user_mod(self, user, addattrs=[], setattrs=[], delattrs=[]):
         m = {
             'method': 'user_mod',
