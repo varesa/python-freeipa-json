@@ -447,6 +447,21 @@ class ipa(object):
         }
         params.update(attrs)
         m = {'item': [dnszone], 'method': 'dnszone_find', 'params': params}
-        results = self.makeReq(m)
+        return self.makeReq(m)
 
-        return results
+    def dnsrecord_add(self, dnszone, dnsname, attrs):
+        m = {
+            'method': 'dnsrecord_add',
+            'item': [dnszone, {"__dns_name__": dnsname}],
+            'params': attrs,
+        }
+        return self.makeReq(m)
+
+    def dnsrecord_find(self, dnszone, attrs={}, sizelimit=40000):
+        params = {
+                'all': True,
+                'sizelimit': sizelimit,
+        }
+        params.update(attrs)
+        m = {'item': [dnszone], 'method': 'dnsrecord_find', 'params': params}
+        return self.makeReq(m)
