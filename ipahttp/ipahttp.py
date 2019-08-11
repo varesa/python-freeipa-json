@@ -439,3 +439,14 @@ class ipa(object):
         results = self.makeReq(m)
 
         return results
+
+    def dnszone_find(self, dnszone=None, attrs={}, sizelimit=40000):
+        params = {
+                'all': True,
+                'sizelimit': sizelimit,
+        }
+        params.update(attrs)
+        m = {'item': [dnszone], 'method': 'dnszone_find', 'params': params}
+        results = self.makeReq(m)
+
+        return results
